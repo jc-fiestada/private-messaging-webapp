@@ -1,0 +1,28 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    "rootDir": "./wwwroot/src",
+    "outDir": "./wwwroot/dist",
+
+    "module": "es2020",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "target": "es2020",
+    "lib": ["es2020", "DOM"],
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": false,
+    "declarationMap": false,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "strict": true,
+
+    "skipLibCheck": true,
+  },
+  "include": ["./wwwroot/src"],
+  "exclude": ["./wwwroot/dist", "./node_modules"]
+}

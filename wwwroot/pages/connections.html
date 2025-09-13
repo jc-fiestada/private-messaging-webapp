@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrivateMessage - Connections</title>
+  <link rel="stylesheet" href="../styles/connections.css">
+</head>
+<body>
+  <header>
+    <div class="app-name">PrivateMessage</div>
+    <div class="page-title">Connections</div>
+    <div></div> <!-- spacer -->
+  </header>
+
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <button class="toggle-btn">☰</button>
+    <ul>
+      <li><a href="home.html"><span class="icon">🏠</span><span class="label">Home</span></a></li>
+      <li><a href="request.html"><span class="icon">📩</span><span class="label">Requests</span></a></li>
+      <li class="active"><a href="connections.html"><span class="icon">🤝</span><span class="label">Connections</span></a></li>
+      <li><a href="#"><span class="icon">🚪</span><span class="label">Log Out</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- Chat Area (Center) -->
+  <main class="chat-area">
+    <!-- Chat header -->
+    <div class="chat-header">
+      <div class="receiver-info">
+        <img src="https://via.placeholder.com/40" alt="User" class="profile-pic">
+        <div>
+          <div class="name">Friend Name</div>
+          <div class="status online">Online</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat messages -->
+    <div class="chat-messages">
+      <div class="message received">
+        <span>Hello! 👋</span>
+        <div class="dropdown">
+          <div class="dropdown-menu">
+            <button>Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="message sent">
+        <span>Hey, how are you?</span>
+        <div class="dropdown">
+          <div class="dropdown-menu">
+            <button>Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat input -->
+    <div class="chat-input">
+      <input type="text" placeholder="Type a message...">
+      <button>Send</button>
+    </div>
+  </main>
+
+  <!-- Friends List (Right) -->
+  <aside class="friends-list">
+    <h3>Friends</h3>
+    <ul>
+      <li>
+        <img src="https://via.placeholder.com/35" alt="Profile" class="profile-pic">
+        <span class="username">User 1</span>
+        <span class="status online"></span>
+      </li>
+      <li>
+        <img src="https://via.placeholder.com/35" alt="Profile" class="profile-pic">
+        <span class="username">User 2</span>
+        <span class="status offline"></span>
+      </li>
+    </ul>
+  </aside>
+</div>
+
+
+  <footer>
+    © 2025 PrivateMessage. All rights reserved.
+  </footer>
+
+  <div id="toast-container"></div>
+
+
+  <!-- reusable scripts -->
+
+    <script type="module" src="../dist/connections.js"></script>
+
+</body>
+</html>

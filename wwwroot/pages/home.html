@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrivateMessage - Home</title>
+  <link rel="stylesheet" href="../styles/home.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="app-name">PrivateMessage</div>
+    <div class="page-title">Home</div>
+    <div></div>
+  </header>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <button class="toggle-btn">☰</button>
+      <ul>
+        <li class="active"><a href="home.html"><span class="icon">🏠</span><span class="label">Home</span></a></li>
+        <li><a href="request.html"><span class="icon">📩</span><span class="label">Requests</span></a></li>
+        <li><a href="connections.html"><span class="icon">🤝</span><span class="label">Connections</span></a></li>
+        <li><a href="#"><span class="icon">🚪</span><span class="label">Log Out</span></a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="page-wrapper">
+            <h2>My Profile</h2>
+
+            <div class="profile-card">
+            <img src="https://via.placeholder.com/120" alt="Profile Picture" class="profile-pic">
+
+            <div class="profile-info">
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Username:</strong> johnd123</p>
+                <p><strong>Age:</strong> 22</p>
+                <p><strong>Sex:</strong> Male</p>
+            </div>
+            </div>
+
+            <div class="profile-actions">
+              <button id="updateBtn" class="btn update">Update Profile</button>
+              <button id="deleteBtn" class="btn delete">Delete Account</button>
+            </div>
+        </div>
+    </main>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 PrivateMessage. All rights reserved.
+  </footer>
+
+  <!-- Update Modal -->
+    <div id="updateModal" class="modal">
+    <div class="modal-content">
+        <h3>Update Profile</h3>
+        <form id="updateForm">
+        <label for="updateField">Select field:</label>
+        <select id="updateField" required>
+            <option value="">-- Choose --</option>
+            <option value="username">Username</option>
+            <option value="age">Age</option>
+            <option value="password">Password</option>
+            <option value="sex">Sex</option>
+        </select>
+
+        <div id="updateInputWrapper" class="input-wrapper">
+            <!-- Dynamic input will appear here -->
+        </div>
+
+        <div class="modal-actions">
+            <button id="submitUpdate" type="submit" class="btn update">Save</button>
+            <button id="cancelUpdate" type="button" class="btn cancel">Cancel</button>
+        </div>
+        </form>
+    </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Delete Account</h3>
+        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+        <div class="modal-actions">
+        <button id="submitDelete" class="btn delete">Proceed</button>
+        <button id="cancelDelete" class="btn cancel">Cancel</button>
+        </div>
+    </div>
+    </div>
+
+
+  <!-- Toast notifications -->
+  <div id="toast-container"></div>
+
+  <!-- home script -->
+
+<script src="../dist/home.js"> </script>
+  <!-- Scripts -->
+<script type="module" src="../dist/home.js"></script>
+</body>
+</html>

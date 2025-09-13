@@ -1,0 +1,351 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #1e2a38;
+  color: #f0f0f0;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0d1b2a;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+header .app-name {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+header .page-title {
+  font-size: 1.3rem;
+  flex: 1;
+  text-align: center;
+}
+
+/* Layout container */
+.container {
+  display: flex;
+  flex: 1;
+  min-height: 0; /* prevents flex overflow bugs */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #142d4c;
+  padding: 1rem 0;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+.sidebar.collapsed {
+  width: 70px;
+}
+.sidebar .toggle-btn {
+  background: none;
+  border: none;
+  color: #f0f0f0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  text-align: left;
+}
+.sidebar ul {
+  list-style: none;
+  margin-top: 1rem;
+}
+.sidebar ul li {
+  margin: 0.3rem 0;
+}
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #f0f0f0;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+.sidebar ul li a .icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+.sidebar ul li a:hover {
+  background: #1b3b5a;
+}
+.sidebar ul li.active a {
+  background: #1b4965;
+  border-left: 4px solid #00aaff;
+}
+.sidebar.collapsed .icon {
+  margin-right: 0;
+  text-align: center;
+  flex: 1;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.page-wrapper {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.main h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+/* Footer */
+footer {
+  background: #0d1b2a;
+  text-align: center;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+}
+
+/* Toasts */
+#toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1000;
+}
+.toast {
+  background: #1b4965;
+  color: #f0f0f0;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  min-width: 180px;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Responsive */
+@media (max-width: 560px) {
+  .page-wrapper {
+    padding: 1rem;
+  }
+}
+
+/* Layout */
+.container {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Chat Area */
+.chat-area {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  background: #223447;
+  margin: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Chat Header */
+.chat-header {
+  background: #1b4965;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+.receiver-info {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.receiver-info .profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.receiver-info .name {
+  font-weight: bold;
+}
+.receiver-info .status {
+  font-size: 0.8rem;
+  color: #bbb;
+}
+.receiver-info .status.online {
+  color: #4caf50;
+}
+.receiver-info .status.offline {
+  color: #d32f2f;
+}
+
+/* Chat Messages */
+.chat-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden; /* ✅ prevent horizontal scroll */
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  box-sizing: border-box; /* ✅ padding stays inside */
+}
+.message {
+  max-width: 60%;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  position: relative;
+  display: inline-block;
+}
+.message.sent {
+  background: #00aaff;
+  color: #fff;
+  align-self: flex-end;
+}
+.message.received {
+  background: #1b3b5a;
+  color: #f0f0f0;
+  align-self: flex-start;
+}
+
+/* Dropdown (for delete) */
+/* Dropdown hidden by default */
+.dropdown-menu {
+  opacity: 0;
+  transform: scale(0.9);
+  position: absolute;
+  top: 100%; /* directly below the bubble */
+  left: 0;
+  background: #1b4965;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+/* Show dropdown when hovering the entire message bubble */
+.message:hover .dropdown-menu {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Sent messages → flip dropdown to the right */
+.message.sent .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+.dropdown-menu button {
+  background: none;
+  border: none;
+  color: #f0f0f0;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border-radius: 6px; /* ✅ match dropdown */
+}
+.dropdown-menu button:hover {
+  background: #2a5b84;
+}
+
+/* Chat Input */
+.chat-input {
+  display: flex;
+  padding: 0.8rem;
+  background: #1b4965;
+}
+.chat-input input {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+.chat-input button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #00aaff;
+  color: white;
+  cursor: pointer;
+}
+.chat-input button:hover {
+  background: #0088cc;
+}
+
+/* Friends List */
+.friends-list {
+  width: 280px;
+  background: #223447;
+  padding: 1rem;
+  border-left: 2px solid #1b3b5a;
+}
+.friends-list h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+.friends-list ul {
+  list-style: none;
+}
+.friends-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.friends-list li:hover {
+  background: #1b3b5a;
+}
+.friends-list .profile-pic {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.friends-list .username {
+  flex: 1;
+}
+.friends-list .status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.friends-list .status.online {
+  background: #4caf50;
+}
+.friends-list .status.offline {
+  background: #d32f2f;
+}

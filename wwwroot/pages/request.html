@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrivateMessage - Request</title>
+  <link rel="stylesheet" href="../styles/request.css">
+</head>
+<body>
+  <header>
+    <div class="app-name">PrivateMessage</div>
+    <div class="page-title">Friend Request</div>
+    <div></div> <!-- spacer -->
+  </header>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <button class="toggle-btn">☰</button>
+      <ul>
+        <li><a href="home.html"><span class="icon">🏠</span><span class="label">Home</span></a></li>
+        <li class="active"><a href="request.html"><span class="icon">📩</span><span class="label">Requests</span></a></li>
+        <li><a href="connections.html"><span class="icon">🤝</span><span class="label">Connections</span></a></li>
+        <li><a href="#"><span class="icon">🚪</span><span class="label">Log Out</span></a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+    <div class="page-wrapper">
+        <h2>Friend Requests</h2>
+
+        <!-- Requests List -->
+        <div class="requests-list">
+        <!-- Request Item -->
+        <div class="request-card">
+            <img src="https://via.placeholder.com/80" alt="User 1" class="request-pic">
+            <div class="request-info">
+            <p class="username">@johndoe</p>
+            <div class="request-actions">
+                <button class="btn accept">Accept</button>
+                <button class="btn decline">Decline</button>
+            </div>
+            </div>
+        </div>
+
+        <div class="request-card">
+            <img src="https://via.placeholder.com/80" alt="User 2" class="request-pic">
+            <div class="request-info">
+            <p class="username">@janesmith</p>
+            <div class="request-actions">
+                <button class="btn accept">Accept</button>
+                <button class="btn decline">Decline</button>
+            </div>
+            </div>
+        </div>
+
+        <div class="request-card">
+            <img src="https://via.placeholder.com/80" alt="User 3" class="request-pic">
+            <div class="request-info">
+            <p class="username">@coolguy</p>
+            <div class="request-actions">
+                <button class="btn accept">Accept</button>
+                <button class="btn decline">Decline</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </main>
+
+  </div>
+
+  <footer>
+    © 2025 PrivateMessage. All rights reserved.
+  </footer>
+
+  <div id="toast-container"></div>
+
+
+  <!-- reusable scripts -->
+
+<script type="module" src="../dist/request.js"></script>
+
+</body>
+</html>
