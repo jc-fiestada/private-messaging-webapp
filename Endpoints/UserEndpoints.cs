@@ -1,0 +1,26 @@
+using Microsoft.VisualBasic;
+using PrivateChat.Models;
+using PrivateChat.DatabaseHelpers;
+
+namespace PrivateChat.Endpoints
+{
+    class UserEndpoints
+    {
+        public async Task<IResult> SignUp(UserDTO user)
+        {
+            (User? verifiedUser, List<string> errors) = User.ValidateUser(user);
+
+            ApiResponse<string> results = new ApiResponse<string>();
+
+            if (errors.Count() != 0 && verifiedUser is null)
+            {
+                results.Errors = errors;
+                return Results.Json(results, statusCode: 401);
+            }
+
+            UserDatabase database = new UserDatabase();
+            await database.InsertUser(verifiedUser!);
+            return Results.Json(results, statusCode: 200);
+        }
+    }
+}
