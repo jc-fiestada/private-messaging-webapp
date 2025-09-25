@@ -1,3 +1,4 @@
+using BCrypt.Net;
 using Microsoft.Data.Sqlite;
 using PrivateChat.Models;
 
@@ -11,7 +12,7 @@ namespace PrivateChat.DatabaseHelpers
         private string _messagesTable = "messages";
 
 
-        // Enable Pragma - 
+        // Enable Pragma Keys - Default Open Connection
         private async Task<SqliteConnection> OpenConnection()
         {
             var connection = new SqliteConnection($"Data Source={_filename}");
@@ -25,6 +26,8 @@ namespace PrivateChat.DatabaseHelpers
             }
             return connection;
         }
+
+        // Run this for every method in database, initializes tables for user, connections, and messages
         private async Task InitializeTables()
         {
             using (var connection = await OpenConnection())
@@ -81,6 +84,7 @@ namespace PrivateChat.DatabaseHelpers
             }
         }
 
+        // user related
         public async Task InsertUser(User user)
         {
             await InitializeTables();
@@ -103,7 +107,102 @@ namespace PrivateChat.DatabaseHelpers
                 }
             }
         }
+        public async Task<int> GetUserId(string name)
+        {
+            int userId = 0;
 
+            await InitializeTables();
+
+            using (var connection = await OpenConnection())
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = $"SELECT id FROM {_userTable} WHERE name = @name";
+                    command.Parameters.AddWithValue("@name", name);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            userId = Convert.ToInt32(reader["id"]);
+                        }
+                    }
+                }
+            }
+
+            return userId;
+        }
+        public async Task<User?> GetUserInfo(int id)
+        {
+            await InitializeTables();
+            UserDTO? user = new UserDTO();
+            using (var connection = await OpenConnection())
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = @$"
+                        SELECT * FROM {_userTable}
+                        WHERE id = @id
+                    ";
+
+                    command.Parameters.AddWithValue("@id", id);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            user.ID = Convert.ToInt32(reader["id"]);
+                            user.Name = reader["name"].ToString();
+                            user.Age = Convert.ToInt32(reader["age"]);
+                            user.Sex = reader["sex"].ToString();
+                            user.Username = reader["username"].ToString();
+                            user.HashedPassword = reader["password"].ToString();
+                        }
+                    }
+                }
+            }
+            (User? verifiedUser, List<string> errors) = User.ValidateUser(user);
+            return verifiedUser;
+        }
+
+        public async Task<(bool, int)> ValidateUserSignin(string username, string password)
+        {
+            await InitializeTables();
+
+            using (var connection = await OpenConnection())
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = @$"SELECT password, id FROM {_userTable} WHERE username = @username";
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            string hashedPassword = reader["password"].ToString()!;
+                            int userId = Convert.ToInt32(reader["id"]);
+
+                            if (BCrypt.Net.BCrypt.Verify(password, hashedPassword))
+                            {
+                                return (true, userId);
+                            }
+                            else
+                            {
+                                return (false, 0);
+                            }
+                        }
+                        else
+                        {
+                            return (false, 0);
+                        }
+                    }
+                }
+            }
+
+        }
+        
+
+        // connection related methods
         public async Task InsertConnection(int user1, int user2)
         {
             await InitializeTables();
@@ -144,39 +243,6 @@ namespace PrivateChat.DatabaseHelpers
                     await command.ExecuteNonQueryAsync();
                 }
             }
-        }
-
-        public async Task<User?> GetUserInfo(int id)
-        {
-            await InitializeTables();
-            UserDTO? user = new UserDTO();
-            using (var connection = await OpenConnection())
-            {
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = @$"
-                        SELECT * FROM {_userTable}
-                        WHERE id = @id
-                    ";
-
-                    command.Parameters.AddWithValue("@id", id);
-
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            user.ID = Convert.ToInt32(reader["id"]);
-                            user.Name = reader["name"].ToString();
-                            user.Age = Convert.ToInt32(reader["age"]);
-                            user.Sex = reader["sex"].ToString();
-                            user.Username = reader["username"].ToString();
-                            user.HashedPassword = reader["password"].ToString();
-                        }
-                    }
-                }
-            }
-            (User? verifiedUser, List<string> errors) = User.ValidateUser(user);
-            return verifiedUser;
         }
     }
 }

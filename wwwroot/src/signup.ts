@@ -19,6 +19,7 @@ userForm.addEventListener("submit", async (e) => {
     const convertedAge = parseInt(age.value);
 
     const response = await fetch("/user-signup", {
+        credentials : "include",
         method : "POST",
         headers : {"Content-Type" : "application/json"},
         body : JSON.stringify({
@@ -38,4 +39,5 @@ userForm.addEventListener("submit", async (e) => {
     }
     console.log("trigger this part");
     responseHandler.statusCode(response.status, responseData.errors);
+    return;
 });

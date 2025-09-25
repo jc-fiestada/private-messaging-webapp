@@ -16,16 +16,19 @@ app.UseSession();
 
 app.MapHub<ChatHub>("/chat-hub");
 
-app.MapPost("/user-signup", async (UserDTO user) =>
+
+
+app.MapPost("/user-signup", async (UserDTO user, HttpContext context) =>
 {
     UserEndpoints userEndpoints = new UserEndpoints();
-    return await userEndpoints.SignUp(user);
+    return await userEndpoints.SignUp(user, context);
 });
 
 
-app.MapPost("/user-signin", () =>
+app.MapPost("/user-signin", async (UserDTO user, HttpContext context) =>
 {
-    
+    UserEndpoints userEndpoints = new UserEndpoints();
+    return await userEndpoints.SignUp(user, context);
 });
 
 app.Run();
