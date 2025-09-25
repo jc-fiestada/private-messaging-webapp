@@ -15,11 +15,12 @@ namespace PrivateChat.Endpoints
             if (errors.Count() != 0 && verifiedUser is null)
             {
                 results.Errors = errors;
-                return Results.Json(results, statusCode: 401);
+                return Results.Json(results, statusCode: 400);
             }
 
             UserDatabase database = new UserDatabase();
             await database.InsertUser(verifiedUser!);
+            results.Message = "Success";
             return Results.Json(results, statusCode: 200);
         }
     }

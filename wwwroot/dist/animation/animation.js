@@ -9,6 +9,7 @@ export function showToast(message) {
         toast.classList.remove('show');
         setTimeout(() => toast.remove(), 300);
     }, 3000);
+    console.log("trigger animation");
 }
 export function toggleSidebar() {
     const sidebarBtn = document.querySelector(".toggle-btn");

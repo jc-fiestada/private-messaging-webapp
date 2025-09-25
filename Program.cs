@@ -16,7 +16,14 @@ app.UseSession();
 
 app.MapHub<ChatHub>("/chat-hub");
 
-app.MapPost("/user-signin", (User user) =>
+app.MapPost("/user-signup", async (UserDTO user) =>
+{
+    UserEndpoints userEndpoints = new UserEndpoints();
+    return await userEndpoints.SignUp(user);
+});
+
+
+app.MapPost("/user-signin", () =>
 {
     
 });

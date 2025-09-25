@@ -1,4 +1,3 @@
-
 export function showToast(message: string) {
     const container = <HTMLDivElement>document.getElementById('toast-container');
     const toast = document.createElement('div');
@@ -13,6 +12,7 @@ export function showToast(message: string) {
         setTimeout(() => toast.remove(), 300);
         }, 3000
     );
+    console.log("trigger animation");
 }
 
 export function toggleSidebar() {
